@@ -1,0 +1,5 @@
+package: github.com/activatedgeek/putio
+license: MIT
+import:
+- package: github.com/parnurzeal/gorequest
+  version: ^0.2

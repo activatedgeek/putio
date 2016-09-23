@@ -54,3 +54,9 @@ TODO
 * **Account**
   - [ ] Info
   - [ ] Settings
+
+# Development
+
+**NOTE**: `glide` is used for dependency management
+
+Keep this package in your `GOPATH` and run `glide install`.
