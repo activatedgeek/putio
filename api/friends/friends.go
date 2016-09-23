@@ -2,8 +2,16 @@
 // as documented at https://api.put.io/v2/docs/zip.html
 package friends
 
+import (
+  "github.com/activatedgeek/putio/api/commons"
+  "github.com/parnurzeal/gorequest"
+)
+
+const pathPrefix = "/friends"
+
 type Friends struct {
-  AccessToken string
+  ApiEndpoint string
+  Request *gorequest.SuperAgent
 }
 
 func (f *Friends) List() {
@@ -14,7 +22,7 @@ func (f *Friends) FriendRequests() {
 
 }
 
-func (f *Friends) SendRequest() {
+func (f *Friends) FriendRequest() {
 
 }
 
@@ -28,4 +36,11 @@ func (f *Friends) Deny() {
 
 func (f *Friends) Unfriend() {
 
+}
+
+func BuildNewFriend(accessToken string, config *commons.Config) *Friends {
+  return &Friends{
+    ApiEndpoint: config.Endpoint + pathPrefix,
+    Request: commons.BuildNewRequest(accessToken),
+  }
 }

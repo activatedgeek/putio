@@ -6,13 +6,14 @@ import (
   "log"
   "os/exec"
   "runtime"
+  "github.com/activatedgeek/putio/api/commons"
 )
 
 // api authentication path
 const authenticationPath = "/oauth2/authenticate"
 
 // construct url as prescribed in https://api.put.io/v2/docs/gettingstarted.html#sign-up
-func getTargetAuthUrl(config *Config) string {
+func getTargetAuthUrl(config *commons.Config) string {
   targetAuthURL := config.Endpoint + authenticationPath + "?client_id=" +
     config.ClientId + "&response_type=code&redirect_uri=" +
     config.RedirectUri
@@ -20,7 +21,7 @@ func getTargetAuthUrl(config *Config) string {
   return targetAuthURL
 }
 
-func Login(config *Config) {
+func Login(config *commons.Config) {
   // string for BSD open equivalent on different OSes
   var openCommandString string
   switch runtime.GOOS {

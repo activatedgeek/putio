@@ -1,6 +1,6 @@
 // this module contains the configuration needed to
 // operate with the Put.io API
-package api
+package commons
 
 import (
   "strconv"
@@ -33,6 +33,14 @@ type Config struct {
 
   // local server port
   Port int
+}
+
+// get empty config, use when access token already available
+func NewEmptyConfig() *Config {
+  return &Config{
+    ApiVersion: apiVersion,
+    Endpoint: apiEndpoint + "/" + apiVersion,
+  }
 }
 
 // initialize a new Config with default values

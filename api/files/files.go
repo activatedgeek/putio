@@ -2,8 +2,16 @@
 // as documented at https://api.put.io/v2/docs/files.html
 package files
 
+import (
+  "github.com/activatedgeek/putio/api/commons"
+  "github.com/parnurzeal/gorequest"
+)
+
+const pathPrefix = "/files"
+
 type Files struct {
-  AccessToken string
+  ApiEndpoint string
+  Request *gorequest.SuperAgent
 }
 
 func (f *Files) List() {
@@ -50,11 +58,27 @@ func (f *Files) Download() {
 
 }
 
-func (f *Files) Sharing() {
+func (f *Files) Share() {
 
 }
 
-func (f *Files) Subtitles() {
+func (f *Files) ListShared() {
+
+}
+
+func (f *Files) ListSharedWith() {
+
+}
+
+func (f *Files) Unshare() {
+
+}
+
+func (f *Files) ListSubtitles() {
+
+}
+
+func (f *Files) GetSubtitles() {
 
 }
 
@@ -70,10 +94,21 @@ func (f *Files) Events() {
 
 }
 
+func (f *Files) DeleteEvent() {
+
+}
+
 func (f *Files) SetVideoPosition() {
 
 }
 
-func (f *Files) GetVideoPosition() {
+func (f *Files) DeleteVideoPosition() {
 
+}
+
+func BuildNewFile(accessToken string, config *commons.Config) *Files {
+  return &Files{
+    ApiEndpoint: config.Endpoint + pathPrefix,
+    Request: commons.BuildNewRequest(accessToken),
+  }
 }
