@@ -1,8 +1,12 @@
 // this package starts a temporary callback HTTP server to handle callbacks
 // from the OAuth permissions from Put.io
+// @NOTE this package is still in progress
 package api
 
 import (
+  "io"
+  "strconv"
+	"net/http"
   "log"
   "os/exec"
   "runtime"
@@ -19,6 +23,11 @@ func getTargetAuthUrl(config *commons.Config) string {
     config.RedirectUri
 
   return targetAuthURL
+}
+
+func handleAccessTokenCallback(w http.ResponseWriter, r *http.Request) {
+  responseHtml := "<html><body><p>You can close this window</p></body></html>"
+  io.WriteString(w, responseHtml)
 }
 
 func Login(config *commons.Config) {
@@ -40,4 +49,8 @@ func Login(config *commons.Config) {
   if err != nil {
     log.Fatal(err)
   }
+
+  // start the temporary HTTP server
+  http.HandleFunc("/auth/callback", handleAccessTokenCallback)
+	http.ListenAndServe(":" + strconv.Itoa(config.Port), nil)
 }

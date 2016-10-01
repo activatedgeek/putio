@@ -4,11 +4,14 @@ import (
   "os"
   "fmt"
   "log"
+  "github.com/activatedgeek/putio"
   "github.com/activatedgeek/putio/api"
   "github.com/activatedgeek/putio/api/commons"
 )
 
 func main() {
+  fmt.Println("Putio Go SDK version " + putio.Version)
+
   // client id and secret only needed for login (@TODO)
   // alternatively, commons.NewEmptyConfig() which requires no arguments
   config := commons.NewDefaultConfig(os.Getenv("PUTIO_CLIENT_ID"), os.Getenv("PUTIO_CLIENT_SECRET"))

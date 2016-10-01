@@ -10,7 +10,7 @@ The documentation for the OAuth2 HTTP API can be found [here](https://api.put.io
 
 A basic usage of the SDK is provided below. All other calls follow similar pattern.
 
-```
+```go
 package main
 
 import (
@@ -22,12 +22,8 @@ import (
 )
 
 func main() {
-  // client id and secret only needed for login (@TODO)
-  // alternatively, commons.NewEmptyConfig() which requires no arguments
-  config := commons.NewDefaultConfig(os.Getenv("PUTIO_CLIENT_ID"), os.Getenv("PUTIO_CLIENT_SECRET"))
-
-  // session is required
-  session := api.NewSession(os.Getenv("PUTIO_ACCESS_TOKEN"), config)
+  // create a new API session
+  session := api.NewSession(os.Getenv("PUTIO_ACCESS_TOKEN"), commons.NewEmptyConfig())
 
   // list all the files in root folder
   _, body, err := session.Files.List("0")
@@ -37,7 +33,6 @@ func main() {
 
   fmt.Println(body)
 }
-
 ```
 
 # Coverage
