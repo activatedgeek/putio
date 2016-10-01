@@ -3,32 +3,30 @@
 package account
 
 import (
+  "net/http"
   "github.com/activatedgeek/putio/api/commons"
-  "github.com/parnurzeal/gorequest"
 )
 
 const pathPrefix = "/account"
 
 type Account struct {
-  ApiEndpoint string
-  Request *gorequest.SuperAgent
-}
-
-func (a *Account) Info() {
-
-}
-
-func (a *Account) Settings() {
-
-}
-
-func (a *Account) SetSettings() {
-
+  Req *commons.Request
 }
 
 func BuildNewAccount(accessToken string, config *commons.Config) *Account {
   return &Account{
-    ApiEndpoint: config.Endpoint + pathPrefix,
-    Request: commons.BuildNewRequest(accessToken),
+    Req: commons.BuildNewRequest(accessToken, config.Endpoint + pathPrefix),
   }
+}
+
+func (a *Account) Info() (*http.Response, string, []error) {
+  return a.Req.Get("/info").End()
+}
+
+func (a *Account) Settings() (*http.Response, string, []error) {
+  return a.Req.Get("/settings").End()
+}
+
+func (a *Account) SetSettings(newSettings interface{}) (*http.Response, string, []error) {
+  return a.Req.Post("/settings").Send(newSettings).End()
 }

@@ -2,6 +2,8 @@
 // it wraps the response into standard operable structure
 package commons
 
+
+// @TODO this still needs implementation
 type Response struct {
   // status string, "OK" or "ERROR"
   Status string

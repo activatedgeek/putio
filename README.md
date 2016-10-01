@@ -2,16 +2,44 @@
 
 This is the implementation of Put.io API in Golang.
 
-The documentation for the OAuth2 HTTP API can be found [here](https://api.put.io/v2/docs/gettingstarted.html#api-clients).
+The documentation for the OAuth2 HTTP API can be found [here](https://api.put.io/v2/docs/gettingstarted.html).
 
 # Docs
 
-TODO
+## Usage
+
+A basic usage of the SDK is provided below. All other calls follow similar pattern.
+
+```
+package main
+
+import (
+  "os"
+  "fmt"
+  "log"
+  "github.com/activatedgeek/putio/api"
+  "github.com/activatedgeek/putio/api/commons"
+)
+
+func main() {
+  config := commons.NewDefaultConfig(os.Getenv("PUTIO_CLIENT_ID"), os.Getenv("PUTIO_CLIENT_SECRET"))
+  session := api.NewSession(os.Getenv("PUTIO_ACCESS_TOKEN"), config)
+
+  // list all the files in root folder
+  _, body, err := session.Files.List("0")
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  // print the response JSON
+  fmt.Println(body)
+}
+```
 
 # Coverage
 
 * **Files**
-  - [ ] List
+  - [x] List
   - [ ] Search
   - [ ] Upload
   - [ ] Create Folder
@@ -31,29 +59,30 @@ TODO
   - [ ] Get Video Position
 
 * **Transfers**
-  - [ ] List
-  - [ ] Add
-  - [ ] Get
-  - [ ] Retry
-  - [ ] Cancel
-  - [ ] Clean
+  - [x] List
+  - [x] Add
+  - [x] Get
+  - [x] Retry
+  - [x] Cancel
+  - [x] Clean
 
 * **Zip**
-  - [ ] Create
-  - [ ] List
-  - [ ] Get
+  - [x] Create
+  - [x] List
+  - [x] Get
 
 * **Friends**
-  - [ ] List
-  - [ ] Friend Requests
-  - [ ] Send Requests
-  - [ ] Approve
-  - [ ] Deny
-  - [ ] Unfriend
+  - [x] List
+  - [x] List Requests
+  - [x] Request
+  - [x] Approve
+  - [x] Deny
+  - [x] Unfriend
 
 * **Account**
-  - [ ] Info
-  - [ ] Settings
+  - [x] Info
+  - [x] Settings
+  - [x] Set Settings
 
 # Development
 

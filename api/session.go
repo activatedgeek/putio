@@ -7,7 +7,7 @@ import (
   "github.com/activatedgeek/putio/api/files"
   "github.com/activatedgeek/putio/api/friends"
   "github.com/activatedgeek/putio/api/transfers"
-  "github.com/activatedgeek/putio/api/zip"
+  "github.com/activatedgeek/putio/api/zips"
 )
 
 type Session struct {
@@ -15,7 +15,7 @@ type Session struct {
   Files *files.Files
   Friends *friends.Friends
   Transfers *transfers.Transfers
-  Zip *zip.Zip
+  Zip *zips.Zip
 }
 
 // @NOTE persistence of access token is out of scope
@@ -25,6 +25,6 @@ func NewSession(accessToken string, config *commons.Config) *Session {
     Files: files.BuildNewFile(accessToken, config),
     Friends: friends.BuildNewFriend(accessToken, config),
     Transfers: transfers.BuildNewTransfer(accessToken, config),
-    Zip: zip.BuildNewZip(accessToken, config),
+    Zip: zips.BuildNewZip(accessToken, config),
   }
 }

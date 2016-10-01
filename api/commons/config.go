@@ -3,6 +3,7 @@
 package commons
 
 import (
+  "time"
   "strconv"
 )
 
@@ -33,6 +34,8 @@ type Config struct {
 
   // local server port
   Port int
+
+  Timeout time.Duration
 }
 
 // get empty config, use when access token already available
@@ -40,6 +43,7 @@ func NewEmptyConfig() *Config {
   return &Config{
     ApiVersion: apiVersion,
     Endpoint: apiEndpoint + "/" + apiVersion,
+    Timeout: 2 * time.Millisecond,
   }
 }
 
@@ -52,6 +56,7 @@ func NewDefaultConfig(clientId string, clientSecret string) *Config {
     ClientSecret: clientSecret,
     RedirectUri: defaultLocalHost + ":" + strconv.Itoa(defaultLocalPort) + defaultLocalPath,
     Port: defaultLocalPort,
+    Timeout: 2 * time.Millisecond,
   }
 }
 
@@ -64,5 +69,6 @@ func NewConfig(clientId string, clientSecret string, hostUri string, port int) *
     ClientSecret: clientSecret,
     RedirectUri: hostUri + ":" + strconv.Itoa(port) + defaultLocalPath,
     Port: port,
+    Timeout: 2 * time.Millisecond,
   }
 }

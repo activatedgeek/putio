@@ -3,22 +3,32 @@
 package files
 
 import (
+  // "strconv"
+  "net/http"
   "github.com/activatedgeek/putio/api/commons"
-  "github.com/parnurzeal/gorequest"
 )
 
 const pathPrefix = "/files"
 
 type Files struct {
-  ApiEndpoint string
-  Request *gorequest.SuperAgent
+  Req *commons.Request
 }
 
-func (f *Files) List() {
+func BuildNewFile(accessToken string, config *commons.Config) *Files {
+  return &Files{
+    Req: commons.BuildNewRequest(accessToken, config.Endpoint + pathPrefix),
+  }
+}
 
+func (f *Files) List(parent_id string) (*http.Response, string, []error) {
+  return f.Req.Get("/list").Query("parent_id=" + parent_id).End()
 }
 
 func (f *Files) Search() {
+
+}
+
+func (f *Files) SearchPage() {
 
 }
 
@@ -104,11 +114,4 @@ func (f *Files) SetVideoPosition() {
 
 func (f *Files) DeleteVideoPosition() {
 
-}
-
-func BuildNewFile(accessToken string, config *commons.Config) *Files {
-  return &Files{
-    ApiEndpoint: config.Endpoint + pathPrefix,
-    Request: commons.BuildNewRequest(accessToken),
-  }
 }

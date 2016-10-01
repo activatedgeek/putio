@@ -6,6 +6,22 @@ import (
   "github.com/parnurzeal/gorequest"
 )
 
-func BuildNewRequest(accessToken string) (*gorequest.SuperAgent) {
-  return gorequest.New().Set("Accept", "application/json")
+type Request struct {
+  AccessToken string
+  BaseUrl string
+}
+
+func BuildNewRequest(accessToken string, baseUrl string) (*Request) {
+  return &Request{
+    AccessToken: accessToken,
+    BaseUrl: baseUrl,
+  }
+}
+
+func (r *Request) Get(path string) (*gorequest.SuperAgent) {
+  return gorequest.New().Set("Accept", "application/json").Get(r.BaseUrl + path).Query("oauth_token=" + r.AccessToken)
+}
+
+func (r *Request) Post(path string) (*gorequest.SuperAgent) {
+  return gorequest.New().Set("Accept", "application/json").Post(r.BaseUrl + path).Query("oauth_token=" + r.AccessToken)
 }
